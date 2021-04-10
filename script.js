@@ -18,6 +18,7 @@ async function sendMessage(msg) {
   }
 }
 
+// testing 123
 (async function main() {
   try {
     // const rssData = (await axios.get(FEED_URL)).data;
