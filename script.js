@@ -7,12 +7,15 @@ const API_URL = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessag
 
 async function sendMessage(msg) {
   try {
-    await axios.post(API_URL, {
-      chat_id: process.env.CHAT_ID,
-      text: msg,
-      parse_mode: "HTML",
-      disable_web_page_preview: true,
-    });
+    const chatIds = process.env.CHAT_ID.split(",");
+    for (let chatId of chatIds) {
+      axios.post(API_URL, {
+        chat_id: chatId,
+        text: msg,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      });
+    }
   } catch (e) {
     console.error(e);
   }
@@ -27,12 +30,14 @@ async function sendMessage(msg) {
     const data = (await parser.parseURL(FEED_URL)).items
       .map(({ title, link, pubDate }) => ({ title, link, pubDate }))
       .filter(
-        ({ pubDate }) => now - new Date(pubDate).getTime() < 10 * 60 * 1000
+        ({ pubDate }) => now - new Date(pubDate).getTime() < 5 * 60 * 1000
       );
 
-    data.forEach(({ title, link }) =>
-      sendMessage(`<a href="${link}">${title}</a>`)
-    );
+    // data.forEach(({ title, link }) =>
+    //   sendMessage(`<a href="${link}">${title}</a>`)
+    // );
+
+    sendMessage("hello somesh");
   } catch (e) {
     console.error(e);
   }
