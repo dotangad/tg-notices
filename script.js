@@ -33,11 +33,9 @@ async function sendMessage(msg) {
         ({ pubDate }) => now - new Date(pubDate).getTime() < 5 * 60 * 1000
       );
 
-    // data.forEach(({ title, link }) =>
-    //   sendMessage(`<a href="${link}">${title}</a>`)
-    // );
-
-    sendMessage("hello somesh");
+    data.forEach(({ title, link }) =>
+      sendMessage(`<a href="${link}">${title}</a>`)
+    );
   } catch (e) {
     console.error(e);
   }
